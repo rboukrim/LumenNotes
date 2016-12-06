@@ -1,7 +1,7 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
+ |--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
 |
@@ -12,20 +12,18 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->version();
+	return $app->version();
 });
 
-
-	$app->group(['prefix' => 'api/v1'/*, 'middleware' => 'auth',  function (Request $request) {$user = $request->user();}*/], function($app)
+	$app->group(['prefix' => 'api/v1', 'middleware' => 'auth', function (Request $request) {$user = $request->user();}], function($app)
 	{
 		$app->get('notes','NoteController@index');
-	
+
 		$app->get('notes/{id}','NoteController@getNote');
-	
+
 		$app->post('notes','NoteController@createNote');
-	
+
 		$app->put('notes/{id}','NoteController@updateNote');
-	
+
 		$app->delete('notes/{id}','NoteController@deleteNote');
 	});
-	
