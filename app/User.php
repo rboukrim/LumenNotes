@@ -12,14 +12,21 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
 	use Authenticatable, Authorizable;
 
+	public $timestamps = false;
+	
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = [
-			'id', 'email', 'password',
-	];
+	protected $fillable = ['email',];
+	
+	/**
+	 * The attributes that are guarded.
+	 *
+	 * @var array
+	 */
+	protected $guarded =  ['id', 'password',];
 
 	// each user has many notes
 	public function notes() {
