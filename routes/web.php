@@ -15,7 +15,7 @@ $app->get('/', function () use ($app) {
 	return $app->version();
 });
 
-	$app->group(['prefix' => 'api/v1', 'middleware' => 'auth', function (Request $request) {$user = $request->user();}], function($app)
+	$app->group(['prefix' => 'api/v1', 'middleware' => 'auth'], function($app)
 	{
 		$app->get('notes','NoteController@index');
 
