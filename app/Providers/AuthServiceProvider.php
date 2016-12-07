@@ -31,12 +31,10 @@ class AuthServiceProvider extends ServiceProvider
 		// the User instance via an API token or any other method necessary.
 
 		$this->app['auth']->viaRequest('api', function ($request) {
+			$authEmail = $request->header("php-auth-user");
+			$authPassword = $request->header("php-auth-pw");
 			$user = null;
-			if (isset($_SERVER['HTTP_AUTHORIZATION']) && preg_match('/Basic\s+(.*)$/i', $_SERVER['HTTP_AUTHORIZATION'], $matches)) {
-				list($email, $password) = explode(':', base64_decode($matches[1]));
-				$authEmail = strip_tags($email);
-				$authPassword = strip_tags($password);
-
+			if ( $authEmail && $authPassword ) {
 				$user = User::where('email', '=', $authEmail)->where('password', '=', $authPassword)->first();
 			}
 			return $user;
